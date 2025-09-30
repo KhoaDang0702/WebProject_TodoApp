@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+</head>
+
+<style>
+   
+    body{
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+    }
+
+    h2{
+        margin-bottom: 10px;
+    }
+
+    #input{
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    #input input{
+        flex: 1;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 8px;
+    }
+
+    #input button{
+        padding: 8px 12px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+    }
+
+    #input button:hover {
+        background-color: #0056b3;
+    }
+
+    #show{
+        margin-top: 15px;
+        width: 300px;
+    }
+
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .task span.done {
+      text-decoration: line-through;
+      color: gray;
+    }
+
+    .task button {
+      margin-left: 5px;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .delete {
+      background-color: red;
+      color: white;
+    }
+
+    .doneBtn {
+      background-color: green;
+      color: white;
+    }
+</style>
+
+<body>
+        <h2 title="This is title of the app">Todo App</h2>
+        <div id = "input">
+            <input type="text" class="input" placeholder="Enter your task...">
+            <button id="addBtn">Add New</button>
+        </div>
+        <div id = "show">
+    
+        </div>
+</body>
+
+<script>
+    const input = document.querySelector(".input");
+    const btn = document.getElementById("addBtn");
+    const show = document.getElementById("show");
+
+    function addTask(){
+        const text = input.value.trim();
+        if (text == "") return;
+
+        const task = document.createElement("div");
+      task.classList.add("task");
+      task.innerHTML = `
+        <span>${text}</span>
+        <div>
+          <button class="doneBtn">Done</button>
+          <button class="delete">X</button>
+        </div>
+      `;
+      show.appendChild(task);
+      input.value = "";
+
+      task.querySelector(".doneBtn").addEventListener("click", () => {
+        task.querySelector("span").classList.toggle("done");
+      });
+
+      task.querySelector(".delete").addEventListener("click", () => {
+        task.remove();
+      });
+    }
+
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        addTask();
+      }
+    });
+</script>
+
+</html>
